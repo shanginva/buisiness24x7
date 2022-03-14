@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, TextInput, Text, View } from 'react-native';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
+import React from 'react';
+import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 export type UserInputProps = {
   onSubmit: (message: string) => void;
@@ -9,17 +9,28 @@ export type UserInputProps = {
 
 const UserInput = ({ onSubmit }: UserInputProps) => {
   const [input, setInput] = React.useState('');
+
+  const onSave = () => {
+    if (input === '') {
+      return;
+    }
+    onSubmit(input);
+    setInput('');
+  };
+
   return (
-    <View style={styles.view}>
+    <View style={{ ...styles.view }}>
       <TextInput
         style={styles.input}
         value={input}
         onChangeText={setInput}
+        onSubmitEditing={onSave}
         placeholder="Type something"
       />
-      <Pressable onPress={() => { onSubmit(input) }}>
-        <FontAwesomeIcon style={{ margin: 3 }} icon={faArrowRight} />
-      </Pressable>
+      {!!input &&
+        <Pressable onPress={onSave}>
+          <FontAwesomeIcon style={{ marginRight: 15 }} icon={faPaperPlane} />
+        </Pressable>}
     </View>);
 }
 
