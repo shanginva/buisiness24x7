@@ -1,11 +1,12 @@
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import MessageView from './components/MessageView';
 import UserInput from './components/UserInput';
 
 import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
+import { useLanguage } from './hooks/useLanguage';
 
 type Message = {
   text: string;
@@ -15,11 +16,15 @@ type Message = {
 const App = () => {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  const [messages, setMessages] = useState<Message[]>([
-    { text: 'Hello', type: 'incoming' },
-    { text: 'How are you?', type: 'outgoing' },
-    { text: 'What\'s up?', type: 'incoming' },
-    { text: 'Let\'s meet?', type: 'outgoing' }]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const { getAnswer } = useLanguage();
+
+  const onSubmit = async (question: string) => {
+    const result = await getAnswer(question);
+    setMessages([...messages,
+    { text: question, type: 'outgoing' },
+    { text: result.answers[0].answer, type: 'incoming' }])
+  };
 
   return (
     <View style={styles.center}>
@@ -27,7 +32,7 @@ const App = () => {
         {messages
           .map((message, index) => <MessageView key={index} message={message.text} type={message.type}></MessageView>)}
       </ScrollView>
-      <UserInput onSubmit={message => setMessages([...messages, { text: message, type: 'outgoing' }])}></UserInput>
+      <UserInput onSubmit={onSubmit}></UserInput>
     </View>
   );
 };
@@ -41,7 +46,7 @@ const styles = StyleSheet.create({
   scrollView: {
     marginTop: 30,
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 20
   }
 });
 

@@ -6,20 +6,24 @@ export type MessageViewProps = {
 }
 
 const MessageView = ({ message, type }: MessageViewProps) => {
-  const textAlign = type === 'incoming' ? 'left' : 'right';
-  return (<View>
-    <Text style={{ ...styles.text, textAlign }}>{message}</Text>
-  </View>);
+  return (<View style={styles.view}>
+    <Text style={styles.text}>{message}</Text>
+  </View >);
 };
 
 const styles = StyleSheet.create({
+  view: {
+    flexDirection: 'column',
+    alignContent: 'flex-start'
+  },
   text: {
     borderColor: 'grey',
     borderWidth: 1,
     backgroundColor: 'deepskyblue',
     textAlign: 'right',
+    fontSize: 10,
     margin: 2,
-    padding: 2,
+    padding: 10,
     borderRadius: 4,
     opacity: 0.7
   }
