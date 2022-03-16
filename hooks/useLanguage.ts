@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseUrl = 'https://buisiness24x7.cognitiveservices.azure.com/language/:query-knowledgebases?projectName=Buisiness24x7&api-version=2021-10-01&deploymentName=production';
-const subscriptionKey = '470a875b63a542eaa5f0e69fb8d7b70c';
+const subscriptionKey = '';
 const config = {
   headers: {
     'Ocp-Apim-Subscription-Key': subscriptionKey,
