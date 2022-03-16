@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Buffer } from 'buffer';
 
-const speechToTextUrl = 'https://westeurope.stt.speech.microsoft.com/cognitiveservices/v1?language=en-US';
+const speechToTextUrl = 'https://westeurope.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=ru-RU';
 const textToSpeechUrl = 'https://westeurope.tts.speech.microsoft.com/cognitiveservices/v1';
 const subscriptionKey = '41ea2917700241c98385acad1f25ef47';
 
@@ -19,7 +19,6 @@ export const useSpeech = (): {
         'Content-Type': 'audio/wav'
       }
     })).data;
-    console.log(result);
     return result;
   };
 

@@ -6,16 +6,12 @@ export const useSound = (): [(uri: string) => Promise<void>] => {
 
   React.useEffect(() => {
     return sound
-      ? () => {
-        console.log('Unloading Sound');
-        sound.unloadAsync();
-      }
+      ? () => { sound.unloadAsync(); }
       : undefined;
   }, [sound]);
 
   const play = async (uri: string): Promise<void> => {
     const { sound, status } = await Audio.Sound.createAsync({ uri });
-    console.log(status);
     setSound(sound);
     await sound.playAsync();
   };

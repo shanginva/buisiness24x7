@@ -16,7 +16,6 @@ const AudioRecording = () => {
   const stop = async () => {
     const uri = await stopRecording();
     await play(uri);
-    console.log(uri);
   }
 
   return <Pressable onPressIn={start} onPressOut={stop} >

@@ -7,6 +7,7 @@ import * as FileSystem from 'expo-file-system';
 import { useSound } from '../hooks/useSound';
 import { useSpeech } from '../hooks/useSpeech';
 
+
 export type UserInputProps = {
   onSubmit: (message: string) => void;
 };
@@ -23,7 +24,6 @@ const UserInput = ({ onSubmit }: UserInputProps) => {
     onSubmit(input);
     const soundData = await textToSpeech(input);
     const fileUri = `${FileSystem.documentDirectory}/tmp.mp3`;
-    console.log(fileUri);
     await FileSystem.writeAsStringAsync(fileUri, soundData, { encoding: FileSystem.EncodingType.Base64 });
     await play(fileUri);
     setInput('');
