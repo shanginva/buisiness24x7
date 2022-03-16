@@ -23,10 +23,14 @@ export const useRecording = (): [() => Promise<void>, () => Promise<string>] => 
   };
 
   const stopRecording = async (): Promise<string> => {
-    if (!recording) { throw new Error('Recording is not started') }
+    if (!recording) {
+      throw new Error('Recording is not started')
+    }
     await recording.stopAndUnloadAsync();
     const uri = recording.getURI();
-    if (!uri) { throw new Error('Cannot get recording url') }
+    if (!uri) {
+      throw new Error('Cannot get recording url')
+    }
     setRecording(undefined);
     return uri;
   };
